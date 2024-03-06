@@ -17,6 +17,48 @@ class KehadiranController extends Controller
         return view('kehadiran', compact('unit'));
     }
 
+    function newIndex()
+    {
+        $unit = PersonnelDepartment::where('id', '!=', 1)->orderBy('dept_name', 'asc')->get();
+
+        return view('kehadiran.index', compact('unit'));
+    }
+
+    function newData(Request $request)
+    {
+        $nama_pegawai = $request->nama_pegawai;
+        $unit_kerja = $request->unit_kerja;
+        $tanggal = $request->tanggal;
+
+        // Buat query utk filter
+
+        if ($nama_pegawai == '' && $unit_kerja == '' && $tanggal == '') {
+            $data = [];
+        }
+
+        if ($nama_pegawai == 'arbi') {
+            for ($i = 0; $i < 100; $i++) {
+                $data[$i] = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu' => 7];
+            }
+            // $data = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu', 7];
+        }
+        if ($unit_kerja == 1) {
+            for ($i = 0; $i < 100; $i++) {
+                $data[$i] = ['id_pegawai' => 2, 'username' => 'arbi.cabul', 'nama_pegawai' => 'Arbi Cabul', 'unit' => 'UPT Perpustakaan', 'tanggal' => '01-02-2023', 'jam_masuk' => '07.59', 'jam_keluar' => '16.00', 'total_waktu' => 9];
+            }
+            // $data = ['id_pegawai' => 2, 'username' => 'arbi.cabul', 'nama_pegawai' => 'Arbi Cabul', 'unit' => 'UPT Perpustakaan', 'tanggal' => '01-02-2023', 'jam_masuk' => '07.59', 'jam_keluar' => '16.00', 'total_waktu', 9];
+        }
+        if ($tanggal == '2024-03-06') {
+            for ($i = 0; $i < 100; $i++) {
+                $data[$i] = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu' => 7];
+            }
+            // $data = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu', 7];
+        }
+
+
+        return response()->json($data);
+    }
+
     public function getData()
     {
         $punches = IClockTransaction::orderBy('punch_time', 'desc')

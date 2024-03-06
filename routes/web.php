@@ -41,4 +41,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/kehadiran/home', [KehadiranController::class, 'newIndex'])->name('kehadiran.home');
+Route::post('/kehadiran/data', [KehadiranController::class, 'newData'])->name('kehadiran.data');
+
 require __DIR__ . '/auth.php';
