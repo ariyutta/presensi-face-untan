@@ -11,10 +11,11 @@
         <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
-        <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap5.min.css" rel="stylesheet">
+        {{-- <link href="https://unpkg.com/tabulator-tables@5.5.2/dist/css/tabulator_bootstrap5.min.css" rel="stylesheet"> --}}
         <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
         <link href="{{ asset('assets/plugins/custom/fullcalendar/fullcalendar.bundle.css') }}" rel="stylesheet" type="text/css" />
+        <link href="https://cdn.datatables.net/2.0.1/css/dataTables.dataTables.css" rel="stylesheet">
 
         <style>
             .form-control, .form-select {
@@ -57,9 +58,11 @@
 		<script src="{{ asset('assets/js/custom/apps/chat/chat.js') }}"></script>
 		<script src="{{ asset('assets/js/custom/modals/create-app.js') }}"></script>
 		<script src="{{ asset('assets/js/custom/modals/upgrade-plan.js') }}"></script>
-        <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script>
+        {{-- <script type="text/javascript" src="https://unpkg.com/tabulator-tables/dist/js/tabulator.min.js"></script> --}}
         <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
         <script src="https://npmcdn.com/flatpickr/dist/l10n/id.js"></script>
+        {{-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> --}}
+        <script src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     @yield('js')
 </html>
