@@ -1,0 +1,34 @@
+/* .tabulator-col {
+    background-color: #f8f9fa;
+    font-weight: bold;
+} */
+
+/* Gaya untuk baris */
+.tabulator {
+    font-size: inherit;
+}
+
+/* .table > :not(caption) > * > *,
+.tabulator-row .tabulator-cell {
+    padding: 1px !important;
+}
+
+.tabulator-row,
+.tabulator-headers {
+    min-height: 0 !important;
+    border: 1px solid #212121 !important;
+    border-collapse: collapse !important;
+}
+
+.tabulator-footer-contents {
+    padding: 0 !important;
+}
+
+.tabulator.table .tabulator-row:hover {
+    background-color: inherit;
+}
+*/
+
+.tabulator-footer .tabulator-page {
+    padding: 4px 8px !important;
+}

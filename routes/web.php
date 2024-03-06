@@ -32,6 +32,7 @@ Route::prefix('pegawai')->name('pegawai.')->group(function () {
 
 Route::prefix('kehadiran')->name('kehadiran.')->group(function () {
     Route::get('/', [KehadiranController::class, 'index'])->middleware(['auth', 'verified'])->name('index');
+    Route::get('/get-data', [KehadiranController::class, 'getData'])->middleware(['auth', 'verified'])->name('getData');
 });
 
 Route::middleware('auth')->group(function () {
