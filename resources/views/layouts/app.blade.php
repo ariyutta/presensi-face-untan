@@ -22,6 +22,10 @@
                 border: 1px solid #c9c9c9 !important;
                 font-size: 13px;
             }
+
+            #tabel-kehadiran th, td {
+                text-align: left !important;
+            }
         </style>
 
         <!-- Scripts -->

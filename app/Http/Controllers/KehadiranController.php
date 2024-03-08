@@ -7,6 +7,7 @@ use App\Models\PersonnelDepartment;
 use App\Models\PersonnelEmployee;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class KehadiranController extends Controller
@@ -38,19 +39,19 @@ class KehadiranController extends Controller
         }
 
         if ($nama_pegawai == 'arbi') {
-            for ($i = 0; $i < 100; $i++) {
+            for ($i = 0; $i < 1000; $i++) {
                 $data[$i] = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu' => 7];
             }
             // $data = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu', 7];
         }
         if ($unit_kerja == 1) {
-            for ($i = 0; $i < 100; $i++) {
+            for ($i = 0; $i < 1000; $i++) {
                 $data[$i] = ['id_pegawai' => 2, 'username' => 'arbi.cabul', 'nama_pegawai' => 'Arbi Cabul', 'unit' => 'UPT Perpustakaan', 'tanggal' => '01-02-2023', 'jam_masuk' => '07.59', 'jam_keluar' => '16.00', 'total_waktu' => 9];
             }
             // $data = ['id_pegawai' => 2, 'username' => 'arbi.cabul', 'nama_pegawai' => 'Arbi Cabul', 'unit' => 'UPT Perpustakaan', 'tanggal' => '01-02-2023', 'jam_masuk' => '07.59', 'jam_keluar' => '16.00', 'total_waktu', 9];
         }
         if ($tanggal == '2024-03-06') {
-            for ($i = 0; $i < 100; $i++) {
+            for ($i = 0; $i < 1000; $i++) {
                 $data[$i] = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu' => 7];
             }
             // $data = ['id_pegawai' => 1, 'username' => 'arbi.wibu', 'nama_pegawai' => 'Arbi Yudh', 'unit' => 'UPT TIK', 'tanggal' => '12-12-2023', 'jam_masuk' => '07.00', 'jam_keluar' => '16.00', 'total_waktu', 7];
@@ -85,39 +86,45 @@ class KehadiranController extends Controller
         //     });
         // }
 
-        // $punches = $punches->get();
+        if ($request->formUnit != '') {
+            $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
+                $data->where('department_id', $request->formUnit);
+            });
+        } else {
+            $punches = $punches;
+        }
+
+        $punches = $punches->get();
 
         $employeeData = [];
 
-        $punches->chunk(100, function ($punchChunk) use (&$employeeData) {
-            foreach ($punchChunk as $punch) {
-                $empCode = $punch->emp_code;
-                $punchTime = Carbon::parse($punch->punch_time);
-                $dateKey = $punchTime->toDateString();
+        foreach ($punches as $punch) {
+            $empCode = $punch->emp_code;
+            $punchTime = Carbon::parse($punch->punch_time);
+            $dateKey = $punchTime->toDateString();
 
-                $employee = PersonnelEmployee::where('emp_code', $empCode)->first();
+            $employee = PersonnelEmployee::where('emp_code', $empCode)->first();
 
-                if ($employee) {
-                    $employeeName = $employee->first_name;
-                    $employeeUsername = $employee->last_name;
-                    $department = $employee->department->dept_name;
+            if ($employee) {
+                $employeeName = $employee->first_name;
+                $employeeUsername = $employee->last_name;
+                $department = $employee->department->dept_name;
 
-                    if (!isset($employeeData[$dateKey][$empCode])) {
-                        $employeeData[$dateKey][$empCode] = [
-                            'username' => $employeeUsername,
-                            'nama_pegawai' => $employeeName,
-                            'unit_departement' => $department,
-                            'tanggal' => $punchTime->format('d/m/Y'),
-                            'jam_keluar' => $punchTime->format('H:i:s') . ' WIB',
-                            'jam_masuk' => $punchTime->format('H:i:s') . ' WIB',
-                            'total_waktu' => 0,
-                        ];
-                    } else {
-                        $employeeData[$dateKey][$empCode]['jam_masuk'] = $punchTime->format('H:i:s') . ' WIB';
-                    }
+                if (!isset($employeeData[$dateKey][$empCode])) {
+                    $employeeData[$dateKey][$empCode] = [
+                        'username' => $employeeUsername,
+                        'nama_pegawai' => $employeeName,
+                        'unit_departement' => $department,
+                        'tanggal' => $punchTime->format('d/m/Y'),
+                        'jam_keluar' => $punchTime->format('H:i:s') . ' WIB',
+                        'jam_masuk' => $punchTime->format('H:i:s') . ' WIB',
+                        'total_waktu' => 0,
+                    ];
+                } else {
+                    $employeeData[$dateKey][$empCode]['jam_masuk'] = $punchTime->format('H:i:s') . ' WIB';
                 }
             }
-        });
+        }
 
         foreach ($employeeData as &$dateData) {
             foreach ($dateData as &$data) {

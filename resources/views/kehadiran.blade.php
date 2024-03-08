@@ -10,8 +10,11 @@
             <div class="row mb-5">
                 <div class="col-md-2">
                     <label for="">Unit</label>
-                    <select class="form-select form-select-sm mb-3 mb-lg-0 formUnit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true">
+                    <select class="form-select form-select-sm mb-3 mb-lg-0 formUnit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true" name="formUnit">
                         <option></option>
+                        @foreach ($unit as $item)
+                            <option value="{{ $item->id }}">{{ $item->dept_name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="col-md-2">
@@ -25,7 +28,7 @@
             </div>
             <div class="card shadow">
                 <div class="table-responsive py-3 px-3">
-                    <table id="tabel-kehadiran" class="table-sm">
+                    <table id="tabel-kehadiran" class="table-sm table-bordered">
                         <thead>
                             <tr>
                                 <th>ID Pegawai</th>
@@ -45,33 +48,33 @@
 
     @section('js')
         <script>
-            // var tempData = [];
-
-            // $(".daterange").flatpickr({
-            //     altInput: true,
-            //     altFormat: "d/m/Y H:i",
-            //     dateFormat: "Y-m-d H:i",
-            //     enableTime: true,
-            //     mode: "range",
-            //     locale: "id",
-            //     maxDate: "today",
-            //     defaultDate: "today - today"
-            // });
-
-            $(document).ready(function(){
-                loadData();
+            $(".daterange").flatpickr({
+                altInput: true,
+                altFormat: "d/m/Y H:i",
+                dateFormat: "Y-m-d H:i",
+                enableTime: true,
+                mode: "range",
+                locale: "id",
+                maxDate: "today",
+                defaultDate: "today"
             });
 
-            function loadData() {
-                $('#tabel-kehadiran').DataTable({
+            $(document).ready(function(){
+                clearSession();
+
+                var oTable = $('#tabel-kehadiran').DataTable({
                     processing: true,
-                    pagination: true,
-                    responsive: true,
+                    pagination: false,
                     serverSide: true,
                     searching: false,
-                    ordering: false,
+                    ordering: true,
                     ajax: {
-                        url: "{{ url('http://presensi-face-untan.test/kehadiran/get-data') }}",
+                    url: "{{ url('http://presensi-face-untan.test/kehadiran/get-data') }}",
+                    data: function(d) {
+                        d.formUnit = sessionStorage.formUnit;
+                        d.formPegawai = sessionStorage.formPegawai;
+                    },
+                        type: 'GET'
                     },
                     columns: [
                         {
@@ -104,7 +107,18 @@
                         },
                     ]
                 });
-            }
+
+                function clearSession() {
+                    sessionStorage.removeItem('formUnit');
+                }
+
+                $('.formUnit').on('change', function(e) {
+                    sessionStorage.setItem('formUnit', this.value);
+                    oTable.draw();
+                    e.preventDefault();
+                });
+            });
+
 
             // let table = new Tabulator("#tabel-kehadiran", {
             //     pagination: true,
