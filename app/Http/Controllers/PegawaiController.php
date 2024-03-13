@@ -7,6 +7,7 @@ use App\Models\PersonnelDepartment;
 use App\Models\PersonnelEmployee;
 use App\Models\PersonnelPosition;
 use Illuminate\Http\Request;
+use Yajra\DataTables\Facades\DataTables;
 
 class PegawaiController extends Controller
 {
@@ -47,6 +48,7 @@ class PegawaiController extends Controller
             ->orderBy('emp_code', 'asc')
             ->get();
 
-        return response()->json($strSQL);
+        // return response()->json($strSQL);
+        return DataTables::of($strSQL)->make(true);
     }
 }

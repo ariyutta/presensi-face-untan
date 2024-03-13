@@ -19,11 +19,19 @@
                 </div>
                 <div class="col-md-2">
                     <label for="">Nama Pegawai</label>
-                    <input type="text" class="form-control form-control-sm formPegawai" placeholder="Ketik Nama Pegawai" style="border-radius: 5px">
+                    <input type="text" class="form-control form-control-sm formPegawai" placeholder="Ketik Nama Pegawai" style="border-radius: 5px" name="formPegawai">
                 </div>
                 <div class="col-md-3">
                     <label for="">Periode</label>
-                    <input type="text" name="daterange" placeholder="Pilih Tanggal" class="form-control form-control-sm daterange" style="border-radius: 5px">
+                    <input type="text" name="formTanggal" placeholder="Pilih Tanggal" class="form-control form-control-sm formTanggal" style="border-radius: 5px" >
+                </div>
+                <div class="col-sm-1">
+                    <label for="">Aksi....</label>
+                    <button class="btn btn-primary btn-sm cariPegawai" type="button">Cari Pegawai</button>
+                </div>
+                <div class="col-sm-1">
+                    <label for="">Cetak....</label>
+                    <button class="btn btn-success btn-sm cetakPegawai" type="button">Cetak Pegawai</button>
                 </div>
             </div>
             <div class="card shadow">
@@ -48,14 +56,12 @@
 
     @section('js')
         <script>
-            $(".daterange").flatpickr({
+            $(".formTanggal").flatpickr({
                 altInput: true,
-                altFormat: "d/m/Y H:i",
-                dateFormat: "Y-m-d H:i",
-                enableTime: true,
+                altFormat: "d/m/Y",
+                dateFormat: "Y-m-d",
                 mode: "range",
                 locale: "id",
-                maxDate: "today",
                 defaultDate: "today"
             });
 
@@ -73,6 +79,7 @@
                     data: function(d) {
                         d.formUnit = sessionStorage.formUnit;
                         d.formPegawai = sessionStorage.formPegawai;
+                        d.formTanggal = sessionStorage.formTanggal;
                     },
                         type: 'GET'
                     },
@@ -110,13 +117,35 @@
 
                 function clearSession() {
                     sessionStorage.removeItem('formUnit');
+                    sessionStorage.removeItem('formPegawai');
+                    sessionStorage.removeItem('formTanggal');
                 }
 
-                $('.formUnit').on('change', function(e) {
-                    sessionStorage.setItem('formUnit', this.value);
+                // $('.formUnit').on('change', function(e) {
+                //     sessionStorage.setItem('formUnit', this.value);
+                //     oTable.draw();
+                //     e.preventDefault();
+                // });
+
+                // $('.formPegawai').on('change', function(e) {
+                //     sessionStorage.setItem('formPegawai', this.value);
+                //     oTable.draw();
+                //     e.preventDefault();
+                // });
+
+                $('.cariPegawai').on('click', function(e) {
+                    var unit = $('.formUnit').val();
+                    var pegawai = $('.formPegawai').val();
+                    var tanggal = $('.formTanggal').val();
+
+                    sessionStorage.setItem('formUnit', unit);
+                    sessionStorage.setItem('formPegawai', pegawai);
+                    sessionStorage.setItem('formTanggal', tanggal);
+
                     oTable.draw();
                     e.preventDefault();
                 });
+
             });
 
 

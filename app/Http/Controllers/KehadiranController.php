@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\KehadiranExport;
 use App\Models\IClockTransaction;
 use App\Models\PersonnelDepartment;
 use App\Models\PersonnelEmployee;
 use Carbon\Carbon;
+use DateTime;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
 class KehadiranController extends Controller
@@ -63,37 +65,33 @@ class KehadiranController extends Controller
 
     public function getData(Request $request)
     {
-
-        // $periode = explode(' - ', $request->periode);
-
-        // if (count($periode) == 2) {
-        //     $startDate = $periode[0];
-        //     $endDate = $periode[1];
-        // } else if (count($periode) == 1) {
-        //     $startDate = $periode[0];
-        //     $endDate = $periode[0];
-        // } else {
-        //     $startDate = date('Y-m-d') . ' 00:00:00';
-        //     $endDate =  date('Y-m-d') . ' 23:59:59';
-        // }
-
+        $periode = explode(' - ', $request->formTanggal);
         $punches = IClockTransaction::orderBy('punch_time', 'desc')->orderBy('emp_code');
 
-        // if ($request->username) {
-        //     $punches = $punches->whereHas('pegawai', function ($q) use ($request) {
-        //         $q->whereRaw('LOWER(first_name) LIKE ?', ['%' . strtolower($request->username) . '%'])
-        //             ->orWhere('last_name', 'LIKE', '%' . $request->username . '%');
-        //     });
-        // }
+        if ($request->formPegawai) {
+            $punches = $punches->whereHas('pegawai', function ($q) use ($request) {
+                $q->whereRaw('LOWER(first_name) LIKE ?', ['%' . strtolower($request->formPegawai) . '%'])
+                    ->orWhere('last_name', 'LIKE', '%' . $request->formPegawai . '%')
+                    ->orWhere('emp_code', 'LIKE', '%' . $request->formPegawai . '%');
+            });
+        }
 
-        if ($request->formUnit != '') {
+        if ($request->formUnit) {
             $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
                 $data->where('department_id', $request->formUnit);
             });
-        } else {
-            $punches = $punches;
         }
 
+        if (count($periode) == 2) {
+            $startDate = $periode[0];
+            $endDate = $periode[1];
+
+            $punches = $punches->whereBetween('punch_time', [$startDate, $endDate]);
+        } else {
+            $startDate = new DateTime();
+
+            $punches = $punches->whereBetween('punch_time', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')]);
+        }
         $punches = $punches->get();
 
         $employeeData = [];
@@ -172,5 +170,10 @@ class KehadiranController extends Controller
 
             return DataTables::of($formattedData)->make(true);
         }
+    }
+
+    public function exportExcel(Request $request)
+    {
+        return Excel::download(new KehadiranExport($request), 'test_export.xlsx');
     }
 }

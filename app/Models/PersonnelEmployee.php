@@ -25,4 +25,9 @@ class PersonnelEmployee extends Model
     {
         return $this->hasMany(PersonnelEmployeeArea::class, 'employee_id', 'id');
     }
+
+    public function kehadiran()
+    {
+        return $this->hasMany(IClockTransaction::class, 'emp_code', 'emp_code');
+    }
 }
