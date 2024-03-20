@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\ExportExcelTIK;
 use App\Exports\KehadiranExport;
 use App\Models\IClockTransaction;
 use App\Models\PersonnelDepartment;
@@ -9,6 +10,7 @@ use App\Models\PersonnelEmployee;
 use Carbon\Carbon;
 use DateTime;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -88,9 +90,10 @@ class KehadiranController extends Controller
 
             $punches = $punches->whereBetween('punch_time', [$startDate, $endDate]);
         } else {
-            $startDate = new DateTime();
+            return [];
+            // $startDate = new DateTime();
 
-            $punches = $punches->whereBetween('punch_time', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')]);
+            // $punches = $punches->whereBetween('punch_time', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')]);
         }
         $punches = $punches->get();
 
@@ -107,10 +110,12 @@ class KehadiranController extends Controller
                 $employeeName = $employee->first_name;
                 $employeeUsername = $employee->last_name;
                 $department = $employee->department->dept_name;
+                $employeeNip = $employee->nickname;
 
                 if (!isset($employeeData[$dateKey][$empCode])) {
                     $employeeData[$dateKey][$empCode] = [
                         'username' => $employeeUsername,
+                        'nip' => $employeeNip,
                         'nama_pegawai' => $employeeName,
                         'unit_departement' => $department,
                         'tanggal' => $punchTime->format('d/m/Y'),
@@ -150,6 +155,8 @@ class KehadiranController extends Controller
             }
         }
 
+        return response()->json($employeeData);
+
         if ($request->ajax()) {
             $formattedData = [];
 
@@ -159,6 +166,7 @@ class KehadiranController extends Controller
                         'tanggal' => $tanggal,
                         'kode_pegawai' => $kodePegawai,
                         'username' => $data['username'],
+                        'nip' => $data['nip'],
                         'nama_pegawai' => $data['nama_pegawai'],
                         'unit_departement' => $data['unit_departement'],
                         'jam_keluar' => $data['jam_keluar'],
@@ -175,5 +183,46 @@ class KehadiranController extends Controller
     public function exportExcel(Request $request)
     {
         return Excel::download(new KehadiranExport($request), 'test_export.xlsx');
+    }
+
+    function exportExcelTIK()
+    {
+        $data = Http::get("http://172.16.40.117:8000/api/getKehadiran?username=&department_id=10&periode=2024-03-01%2000:00:00%20-%202024-03-20%2023:00:00")->json();
+        $i = 0;
+        foreach ($data as $val) {
+            foreach ($val['data'] as $item) {
+                $rekap[$i]['nip'] = $item['nip'];
+                $rekap[$i]['nama_pegawai'] = $item['nama_pegawai'];
+                $rekap[$i]['tanggal'] = $item['tanggal'];
+                $rekap[$i]['jam_masuk'] = $item['jam_masuk'];
+                $rekap[$i]['jam_keluar'] = $item['jam_keluar'];
+
+                $jam_masuk = Carbon::parse($item['jam_masuk']);
+                $jam_keluar = Carbon::parse($item['jam_keluar']);
+                $selisih = $jam_masuk->diffInMinutes($jam_keluar);
+                $jam = floor($selisih / 60);
+                $menit = $selisih % 60;
+
+                $rekap[$i]['total_waktu'] = "$jam jam $menit menit";
+
+                // Waktu target hadir
+                $tanggal = $val['tanggal'];
+                $waktu_target_hadir = Carbon::parse("$tanggal 08:30:00");
+
+                // Periksa apakah waktu masuk terlambat
+                if ($jam_masuk->gt($waktu_target_hadir)) {
+                    $rekap[$i]['keterangan'] = "Terlambat";
+                } else {
+                    $rekap[$i]['keterangan'] = "Tepat Waktu";
+                }
+
+                $rekap[$i]['total_waktu'] = "$jam jam $menit menit";
+                $i++;
+            }
+        }
+        $data = collect($rekap)->sortBy('nama_pegawai')->values();
+        // return $rekap;
+
+        return Excel::download(new ExportExcelTIK($data), 'export-rekap-tik.xlsx');
     }
 }

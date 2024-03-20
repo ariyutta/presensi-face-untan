@@ -40,6 +40,7 @@
                         <thead>
                             <tr>
                                 <th>ID Pegawai</th>
+                                <th>NIP</th>
                                 <th>Nama Pegawai</th>
                                 <th>Unit</th>
                                 <th>Tanggal</th>
@@ -65,53 +66,29 @@
                 defaultDate: "today"
             });
 
-            $(document).ready(function(){
+            $(document).ready(function() {
                 clearSession();
 
                 var oTable = $('#tabel-kehadiran').DataTable({
                     processing: true,
-                    pagination: false,
                     serverSide: true,
-                    searching: false,
-                    ordering: true,
                     ajax: {
-                    url: "{{ url('http://presensi-face-untan.test/kehadiran/get-data') }}",
-                    data: function(d) {
-                        d.formUnit = sessionStorage.formUnit;
-                        d.formPegawai = sessionStorage.formPegawai;
-                        d.formTanggal = sessionStorage.formTanggal;
-                    },
-                        type: 'GET'
+                        url: "{{ route('kehadiran.getData') }}",
+                        data: function(d) {
+                            d.formUnit = sessionStorage.formUnit;
+                            d.formPegawai = sessionStorage.formPegawai;
+                            d.formTanggal = sessionStorage.formTanggal;
+                        }
                     },
                     columns: [
-                        {
-                            data: 'kode_pegawai',
-                            name: 'kode_pegawai',
-                        },
-                        {
-                            data: 'nama_pegawai',
-                            name: 'nama_pegawai',
-                        },
-                        {
-                            data: 'unit_departement',
-                            name: 'unit_departement',
-                        },
-                        {
-                            data: 'tanggal',
-                            name: 'tanggal',
-                        },
-                        {
-                            data: 'jam_masuk',
-                            name: 'jam_masuk',
-                        },
-                        {
-                            data: 'jam_keluar',
-                            name: 'jam_keluar',
-                        },
-                        {
-                            data: 'total_waktu',
-                            name: 'total_waktu',
-                        },
+                        { data: 'kode_pegawai', name: 'kode_pegawai' },
+                        { data: 'nip', name: 'nip' },
+                        { data: 'nama_pegawai', name: 'nama_pegawai' },
+                        { data: 'unit_departement', name: 'unit_departement' },
+                        { data: 'tanggal', name: 'tanggal' },
+                        { data: 'jam_masuk', name: 'jam_masuk' },
+                        { data: 'jam_keluar', name: 'jam_keluar' },
+                        { data: 'total_waktu', name: 'total_waktu' }
                     ]
                 });
 
@@ -120,18 +97,6 @@
                     sessionStorage.removeItem('formPegawai');
                     sessionStorage.removeItem('formTanggal');
                 }
-
-                // $('.formUnit').on('change', function(e) {
-                //     sessionStorage.setItem('formUnit', this.value);
-                //     oTable.draw();
-                //     e.preventDefault();
-                // });
-
-                // $('.formPegawai').on('change', function(e) {
-                //     sessionStorage.setItem('formPegawai', this.value);
-                //     oTable.draw();
-                //     e.preventDefault();
-                // });
 
                 $('.cariPegawai').on('click', function(e) {
                     var unit = $('.formUnit').val();
@@ -145,87 +110,7 @@
                     oTable.draw();
                     e.preventDefault();
                 });
-
             });
-
-
-            // let table = new Tabulator("#tabel-kehadiran", {
-            //     pagination: true,
-            //     paginationMode: "local",
-            //     paginationSize: 15,
-            //     paginationSizeSelector: true,
-            //     placeholder: "Data tidak tersedia",
-            //     layout: "fitColumns",
-            //     minHeight: 15,
-            //     height: "100%",
-            //     selectable: 1,
-            //     paginationCounter: "rows",
-            //     data: tempData,
-            //     columns: [
-            //         { title: "ID Pegawai", field: "id" },
-            //         { title: "Username", field: "username" },
-            //         { title: "Nama Pegawai", field: "nama_pegawai" },
-            //         { title: "Unit", field: "unit" },
-            //         { title: "Tanggal", field: "tanggal" },
-            //         { title: "Jam Masuk", field: "jam_masuk" },
-            //         { title: "Jam Keluar", field: "jam_keluar" },
-            //         { title: "Total Waktu", field: "total_waktu" }
-            //     ],
-            //     ajaxURL: "{{ url('http://presensi-face-untan.test/api/kehadiran') }}",
-            //     ajaxParams: function() {
-            //         return {
-            //             username: $('.formPegawai').val(),
-            //         };
-            //     },
-            //     ajaxResponse: function(url, params, response) {
-            //         return response;
-            //     },
-            // });
-
-            // Mengambil data dari URL menggunakan AJAX
-            // $.ajax({
-            //     url: "{{ url('http://presensi-face-untan.test/api/kehadiran') }}",
-            //     method: "GET",
-            //     success: function(response) {
-            //         let tableData = [];
-            //         for (let date in response) {
-            //             for (let id in response[date]) {
-            //                 let row = response[date][id];
-            //                 tableData.push({
-            //                     id: id,
-            //                     username: row.username,
-            //                     nama_pegawai: row.nama_pegawai,
-            //                     unit: row.unit_departement,
-            //                     tanggal: row.tanggal,
-            //                     jam_masuk: row.jam_masuk,
-            //                     jam_keluar: row.jam_keluar,
-            //                     total_waktu: row.total_waktu
-            //                     // Anda bisa menambahkan field lain sesuai kebutuhan
-            //                 });
-
-            //                 tempData.push({
-            //                     id: id,
-            //                     username: row.username,
-            //                     nama_pegawai: row.nama_pegawai,
-            //                     unit: row.unit_departement,
-            //                     tanggal: row.tanggal,
-            //                     jam_masuk: row.jam_masuk,
-            //                     jam_keluar: row.jam_keluar,
-            //                     total_waktu: row.total_waktu
-            //                 });
-            //             }
-            //         }
-            //         // Setelah mendapatkan data, masukkan ke dalam tabel
-            //         // table.setData(tableData);
-            //     },
-            //     error: function(xhr, status, error) {
-            //         console.error("Error:", error);
-            //     }
-            // });
-
-            // $('.formPegawai').change(function() {
-            //     table.setData();
-            // });
         </script>
     @endsection
 </x-app-layout>

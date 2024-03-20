@@ -1,0 +1,83 @@
+[
+    {
+        "emp_code": 2001,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 454,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2002,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 428,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2003,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 429,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2004,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 430,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2006,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 455,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2007,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 456,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2017,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 466,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2018,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 586,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8001,
+        "punch_time": "2024-03-20",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 634,
+        "terminal_id": 15
+    }
+]

@@ -12,6 +12,8 @@ class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
 
+    protected $connection = 'pgsql_second';
+
     /**
      * The attributes that are mass assignable.
      *
