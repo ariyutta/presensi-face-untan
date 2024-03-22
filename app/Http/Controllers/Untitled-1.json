@@ -1,7 +1,7 @@
 [
     {
         "emp_code": 2001,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -10,7 +10,7 @@
     },
     {
         "emp_code": 2002,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -19,7 +19,7 @@
     },
     {
         "emp_code": 2003,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -28,7 +28,7 @@
     },
     {
         "emp_code": 2004,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -37,7 +37,7 @@
     },
     {
         "emp_code": 2006,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -46,7 +46,7 @@
     },
     {
         "emp_code": 2007,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -55,7 +55,7 @@
     },
     {
         "emp_code": 2017,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -64,7 +64,7 @@
     },
     {
         "emp_code": 2018,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
@@ -72,12 +72,93 @@
         "terminal_id": 15
     },
     {
+        "emp_code": 2019,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 587,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2021,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 1181,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 2022,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 1182,
+        "terminal_id": 15
+    },
+    {
         "emp_code": 8001,
-        "punch_time": "2024-03-20",
+        "punch_time": "2024-03-22",
         "terminal_sn": "CL9M203960084",
         "terminal_alias": "34:75:63:2d:00:1f",
         "area_alias": "UPT TIK",
         "emp_id": 634,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8002,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 635,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8003,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 636,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8004,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 637,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8005,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 638,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8006,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 639,
+        "terminal_id": 15
+    },
+    {
+        "emp_code": 8016,
+        "punch_time": "2024-03-22",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 903,
         "terminal_id": 15
     }
 ]

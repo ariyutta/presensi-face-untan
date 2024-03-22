@@ -67,20 +67,22 @@ class KehadiranController extends Controller
 
     public function getData(Request $request)
     {
-        $periode = explode(' - ', $request->formTanggal);
+        $periode = explode(' - ', $request->tanggal);
         $punches = IClockTransaction::orderBy('punch_time', 'desc')->orderBy('emp_code');
 
-        if ($request->formPegawai) {
+        if ($request->username) {
             $punches = $punches->whereHas('pegawai', function ($q) use ($request) {
-                $q->whereRaw('LOWER(first_name) LIKE ?', ['%' . strtolower($request->formPegawai) . '%'])
-                    ->orWhere('last_name', 'LIKE', '%' . $request->formPegawai . '%')
-                    ->orWhere('emp_code', 'LIKE', '%' . $request->formPegawai . '%');
+                $q->whereRaw('LOWER(first_name) LIKE ?', ['%' . strtolower($request->username) . '%'])
+                    ->orWhere('last_name', 'LIKE', '%' . $request->username . '%')
+                    ->orWhere('emp_code', 'LIKE', '%' . $request->username . '%');
             });
         }
 
-        if ($request->formUnit) {
+        if ($request->unit) {
             $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
-                $data->where('department_id', $request->formUnit);
+                $data->whereHas('department', function ($data2) use ($request) {
+                    $data2->where('dept_code', $request->unit);
+                });
             });
         }
 
@@ -90,10 +92,10 @@ class KehadiranController extends Controller
 
             $punches = $punches->whereBetween('punch_time', [$startDate, $endDate]);
         } else {
-            return [];
-            // $startDate = new DateTime();
+            // return [];
+            $startDate = new DateTime();
 
-            // $punches = $punches->whereBetween('punch_time', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')]);
+            $punches = $punches->whereBetween('punch_time', [date('Y-m-d 00:00:00'), date('Y-m-d 23:59:59')]);
         }
         $punches = $punches->get();
 
@@ -155,7 +157,7 @@ class KehadiranController extends Controller
             }
         }
 
-        return response()->json($employeeData);
+        // return response()->json($employeeData);
 
         if ($request->ajax()) {
             $formattedData = [];
@@ -180,14 +182,37 @@ class KehadiranController extends Controller
         }
     }
 
-    public function exportExcel(Request $request)
+    function exportExcelTIK(Request $request)
     {
-        return Excel::download(new KehadiranExport($request), 'test_export.xlsx');
-    }
+        // return $request->all();
+        $usernameId = '';
+        $unitId = '';
 
-    function exportExcelTIK()
-    {
-        $data = Http::get("http://172.16.40.117:8000/api/getKehadiran?username=&department_id=10&periode=2024-03-01%2000:00:00%20-%202024-03-20%2023:00:00")->json();
+        if ($request->username != null) {
+            $usernameId = $request->username;
+        }
+
+        if ($request->unit != null) {
+            $unitId = $request->unit;
+        }
+
+        $periode = explode(' - ', $request->tanggal);
+
+        if (count($periode) == 2) {
+            $startDate = $periode[0];
+            $endDate = $periode[1];
+        } elseif (count($periode) == 1) {
+            $startDate = $periode[0];
+            $endDate = $periode[0];
+        } else {
+            $startDate = date('Y-m-d') . " 00:00";
+            $endDate =  date('Y-m-d') . " 23:59";
+        }
+
+        $data = Http::get("http://172.16.40.117:8000/api/getKehadiran?username=$usernameId&department_id=$unitId&periode=$startDate%2000:00:00%20-%20$endDate%2023:59:59")->json();
+
+        // return $data;
+
         $i = 0;
         foreach ($data as $val) {
             foreach ($val['data'] as $item) {
@@ -224,5 +249,67 @@ class KehadiranController extends Controller
         // return $rekap;
 
         return Excel::download(new ExportExcelTIK($data), 'export-rekap-tik.xlsx');
+    }
+
+    function getJmlKehadiran()
+    {
+        $username = '';
+        $unitId = '10';
+        $firstDate = '2024-03-01';
+        $datenow = Carbon::now()->isoFormat('YYYY-MM-DD');
+        $getHariKerja = Http::get("https://dashboard.presensi.untan.ac.id/api/service/getLibur")->json();
+        $data = Http::get("http://172.16.40.117:8000/api/getKehadiran?username=$username&department_id=$unitId&periode=$firstDate%2000:00:00%20-%20$datenow%2023:00:00")->json();
+
+        $today = date('Y-m-d');
+
+
+        $filteredDates = array_filter($getHariKerja['hari_kerja'], function ($date) use ($today) {
+            return $date <= $today;
+        });
+
+        $TotalHariKerjaPerBulan = count($getHariKerja['hari_kerja']);
+        $TotalHariKerja = count($filteredDates);
+
+        $kehadiranTidakHadir = [];
+
+        foreach ($data as $hari) {
+            foreach ($hari['data'] as $pegawai) {
+                $namaPegawai = $pegawai['nama_pegawai'];
+
+                // Menghitung kehadiran harian
+                if (!isset($kehadiranTidakHadir[$namaPegawai]['kehadiran'])) {
+                    $kehadiranTidakHadir[$namaPegawai]['kehadiran'] = 0;
+                }
+                $kehadiranTidakHadir[$namaPegawai]['kehadiran']++;
+
+                // Menghitung tidak hadir berdasarkan total hari
+                if (!isset($kehadiranTidakHadir[$namaPegawai]['tidak_hadir'])) {
+                    $kehadiranTidakHadir[$namaPegawai]['tidak_hadir'] = 0;
+                } else {
+                    // Memeriksa apakah kehadiran lebih besar dari total hari berjalan
+                    if ($kehadiranTidakHadir[$namaPegawai]['kehadiran'] > $TotalHariKerja) {
+                        // Mengurangi kehadiran yang lebih besar dari total hari berjalan
+                        $kehadiranTidakHadir[$namaPegawai]['tidak_hadir'] = $kehadiranTidakHadir[$namaPegawai]['kehadiran'] - $TotalHariKerja;
+                        $kehadiranTidakHadir[$namaPegawai]['kehadiran'] = $TotalHariKerja; // Set kehadiran menjadi total hari berjalan
+                    } else {
+                        $kehadiranTidakHadir[$namaPegawai]['tidak_hadir'] = 0;
+                    }
+                }
+            }
+        }
+
+
+        // Mengubah jumlah tidak hadir untuk pegawai yang hadir selama seluruh periode
+        foreach ($kehadiranTidakHadir as $namaPegawai => &$pegawai) {
+            $pegawai['nama_pegawai'] = $namaPegawai;
+        }
+
+        $result = [
+            'total_hari_perbulan' => $TotalHariKerjaPerBulan,
+            'total_hari_berjalan' => $TotalHariKerja,
+            'data' => $kehadiranTidakHadir,
+        ];
+
+        return response()->json($result);
     }
 }

@@ -35,6 +35,7 @@ Route::prefix('kehadiran')->name('kehadiran.')->group(function () {
     Route::get('/get-data', [KehadiranController::class, 'getData'])->middleware(['auth', 'verified'])->name('getData');
     Route::get('/export-data', [KehadiranController::class, 'exportExcel'])->middleware(['auth', 'verified'])->name('exportExcel');
     Route::get('/export-tik', [KehadiranController::class, 'exportExcelTIK'])->middleware(['auth', 'verified'])->name('exportExcelTik');
+    Route::get('/getJmlKehadiran', [KehadiranController::class, 'getJmlKehadiran'])->middleware(['auth', 'verified'])->name('getJmlKehadiran');
 });
 
 Route::middleware('auth')->group(function () {

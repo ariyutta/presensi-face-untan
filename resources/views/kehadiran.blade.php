@@ -10,20 +10,20 @@
             <div class="row mb-5">
                 <div class="col-md-2">
                     <label for="">Unit</label>
-                    <select class="form-select form-select-sm mb-3 mb-lg-0 formUnit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true" name="formUnit">
+                    <select class="form-select form-select-sm mb-3 mb-lg-0 unit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true" name="unit">
                         <option></option>
                         @foreach ($unit as $item)
-                            <option value="{{ $item->id }}">{{ $item->dept_name }}</option>
+                            <option value="{{ $item->dept_code }}">{{ $item->dept_name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="col-md-2">
                     <label for="">Nama Pegawai</label>
-                    <input type="text" class="form-control form-control-sm formPegawai" placeholder="Ketik Nama Pegawai" style="border-radius: 5px" name="formPegawai">
+                    <input type="text" class="form-control form-control-sm username" placeholder="Ketik Nama Pegawai" style="border-radius: 5px" name="username">
                 </div>
                 <div class="col-md-3">
                     <label for="">Periode</label>
-                    <input type="text" name="formTanggal" placeholder="Pilih Tanggal" class="form-control form-control-sm formTanggal" style="border-radius: 5px" >
+                    <input type="text" name="tanggal" placeholder="Pilih Tanggal" class="form-control form-control-sm tanggal" style="border-radius: 5px" >
                 </div>
                 <div class="col-sm-1">
                     <label for="">Aksi....</label>
@@ -31,7 +31,7 @@
                 </div>
                 <div class="col-sm-1">
                     <label for="">Cetak....</label>
-                    <button class="btn btn-success btn-sm cetakPegawai" type="button">Cetak Pegawai</button>
+                    <a href="" target="_blank" id="buttonCetak" class="btn btn-success btn-sm" type="button">Cetak Pegawai</a>
                 </div>
             </div>
             <div class="card shadow">
@@ -57,7 +57,7 @@
 
     @section('js')
         <script>
-            $(".formTanggal").flatpickr({
+            $(".tanggal").flatpickr({
                 altInput: true,
                 altFormat: "d/m/Y",
                 dateFormat: "Y-m-d",
@@ -75,9 +75,9 @@
                     ajax: {
                         url: "{{ route('kehadiran.getData') }}",
                         data: function(d) {
-                            d.formUnit = sessionStorage.formUnit;
-                            d.formPegawai = sessionStorage.formPegawai;
-                            d.formTanggal = sessionStorage.formTanggal;
+                            d.unit = sessionStorage.unit;
+                            d.username = sessionStorage.username;
+                            d.tanggal = sessionStorage.tanggal;
                         }
                     },
                     columns: [
@@ -93,22 +93,28 @@
                 });
 
                 function clearSession() {
-                    sessionStorage.removeItem('formUnit');
-                    sessionStorage.removeItem('formPegawai');
-                    sessionStorage.removeItem('formTanggal');
+                    sessionStorage.removeItem('unit');
+                    sessionStorage.removeItem('username');
+                    sessionStorage.removeItem('tanggal');
                 }
 
                 $('.cariPegawai').on('click', function(e) {
-                    var unit = $('.formUnit').val();
-                    var pegawai = $('.formPegawai').val();
-                    var tanggal = $('.formTanggal').val();
+                    var formUnit = $('.unit').val();
+                    var formPegawai = $('.username').val();
+                    var formTanggal = $('.tanggal').val();
 
-                    sessionStorage.setItem('formUnit', unit);
-                    sessionStorage.setItem('formPegawai', pegawai);
-                    sessionStorage.setItem('formTanggal', tanggal);
+                    sessionStorage.setItem('unit', formUnit);
+                    sessionStorage.setItem('username', formPegawai);
+                    sessionStorage.setItem('tanggal', formTanggal);
 
                     oTable.draw();
                     e.preventDefault();
+
+                    var url = location.protocol + '//' + location.host + '/kehadiran/' + 'export-tik?username='+ formPegawai + '&unit=' + formUnit + '&tanggal=' + formTanggal;
+                    var links = encodeURI(url);
+                    console.log(links)
+
+                    $("#buttonCetak").attr("href", links);
                 });
             });
         </script>

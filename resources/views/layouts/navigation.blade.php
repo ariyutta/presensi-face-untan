@@ -25,13 +25,13 @@
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                     <x-nav-link :href="route('kehadiran.index')" :active="request()->routeIs('kehadiran.index')">
-                        {{ __('Kehadiran') }}
+                        {{ __('Rekap Kehadiran') }}
                     </x-nav-link>
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('kehadiran.index')" :active="request()->routeIs('kehadiran.index')">
-                        {{ __('Rekap Bulanan') }}
+                    <x-nav-link :href="route('kehadiran.getJmlKehadiran')" :active="request()->routeIs('kehadiran.getJmlKehadiran')">
+                        {{ __('Jumlah Kehadiran') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -92,7 +92,10 @@
                 {{ __('Pegawai') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('kehadiran.index')" :active="request()->routeIs('kehadiran.index')">
-                {{ __('Kehadiran') }}
+                {{ __('Rekap Kehadiran') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('kehadiran.getJmlKehadiran')" :active="request()->routeIs('kehadiran.getJmlKehadiran')">
+                {{ __('Jumlah Kehadiran') }}
             </x-responsive-nav-link>
         </div>
 

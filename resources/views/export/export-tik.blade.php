@@ -22,13 +22,13 @@
         <tbody>
             @foreach ($data as $item)
                 <tr>
-                    <td>{{ "'".$item['nip'] }}</td>
-                    <td>{{ $item['nama_pegawai'] }}</td>
-                    <td>{{ $item['tanggal'] }}</td>
-                    <td>{{ $item['jam_masuk'] }}</td>
-                    <td>{{ $item['jam_keluar'] }}</td>
-                    <td>{{ $item['total_waktu'] }}</td>
-                    <td>{{ $item['keterangan'] }}</td>
+                    <td style="width: 150px">{{ "'".$item['nip'] }}</td>
+                    <td style="width: 250px">{{ $item['nama_pegawai'] }}</td>
+                    <td style="width: 150px">{{ $item['tanggal'] }}</td>
+                    <td style="width: 150px">{{ $item['jam_masuk'] }}</td>
+                    <td style="width: 150px">{{ $item['jam_keluar'] }}</td>
+                    <td style="width: 150px">{{ $item['total_waktu'] }}</td>
+                    <td style="width: 150px">{{ $item['keterangan'] }}</td>
                 </tr>
             @endforeach
         </tbody>
