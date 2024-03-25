@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\JmlKehadiranController;
 use App\Http\Controllers\KehadiranController;
 use App\Http\Controllers\PegawaiController;
 use App\Http\Controllers\ProfileController;
@@ -35,7 +36,12 @@ Route::prefix('kehadiran')->name('kehadiran.')->group(function () {
     Route::get('/get-data', [KehadiranController::class, 'getData'])->middleware(['auth', 'verified'])->name('getData');
     Route::get('/export-data', [KehadiranController::class, 'exportExcel'])->middleware(['auth', 'verified'])->name('exportExcel');
     Route::get('/export-tik', [KehadiranController::class, 'exportExcelTIK'])->middleware(['auth', 'verified'])->name('exportExcelTik');
+    Route::get('/export-jml-kehadiran', [KehadiranController::class, 'exportJmlKehadiran'])->middleware(['auth', 'verified'])->name('exportJmlKehadiran');
     Route::get('/getJmlKehadiran', [KehadiranController::class, 'getJmlKehadiran'])->middleware(['auth', 'verified'])->name('getJmlKehadiran');
+});
+
+Route::prefix('jml-kehadiran')->name('jml-kehadiran.')->group(function () {
+    Route::get('/', [KehadiranController::class, 'indexJmlKehadiran'])->middleware(['auth', 'verified'])->name('index');
 });
 
 Route::middleware('auth')->group(function () {

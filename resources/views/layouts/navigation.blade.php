@@ -30,7 +30,7 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('kehadiran.getJmlKehadiran')" :active="request()->routeIs('kehadiran.getJmlKehadiran')">
+                    <x-nav-link :href="route('jml-kehadiran.index')" :active="request()->routeIs('jml-kehadiran.index')">
                         {{ __('Jumlah Kehadiran') }}
                     </x-nav-link>
                 </div>
@@ -94,7 +94,7 @@
             <x-responsive-nav-link :href="route('kehadiran.index')" :active="request()->routeIs('kehadiran.index')">
                 {{ __('Rekap Kehadiran') }}
             </x-responsive-nav-link>
-            <x-responsive-nav-link :href="route('kehadiran.getJmlKehadiran')" :active="request()->routeIs('kehadiran.getJmlKehadiran')">
+            <x-responsive-nav-link :href="route('jml-kehadiran.index')" :active="request()->routeIs('jml-kehadiran.index')">
                 {{ __('Jumlah Kehadiran') }}
             </x-responsive-nav-link>
         </div>

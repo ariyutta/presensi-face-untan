@@ -22,7 +22,7 @@ class PegawaiController extends Controller
 
     public function getData(Request $request)
     {
-        $strSQL = PersonnelEmployee::select('id', 'emp_code', 'first_name', 'last_name', 'department_id', 'position_id', 'company_id', 'hire_date')
+        $strSQL = PersonnelEmployee::select('id', 'emp_code', 'nickname', 'first_name', 'last_name', 'department_id', 'position_id', 'company_id', 'hire_date')
             ->with('department', 'position', 'area_pegawai.area');
 
         if ($request->formPerangkat !== null) {

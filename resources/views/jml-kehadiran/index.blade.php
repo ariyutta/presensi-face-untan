@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Kehadiran') }}
+            {{ __('Jumlah Kehadiran') }}
         </h2>
     </x-slot>
 
@@ -36,17 +36,14 @@
             </div>
             <div class="card shadow">
                 <div class="table-responsive py-3 px-3">
-                    <table id="tabel-kehadiran" class="table-sm table-bordered">
+                    <table id="tabel-jml-kehadiran" class="table-sm table-bordered">
                         <thead>
                             <tr>
-                                {{-- <th>ID Pegawai</th> --}}
                                 <th style="text-align: left">NIP</th>
                                 <th style="text-align: left">Nama Pegawai</th>
                                 <th style="text-align: left">Unit</th>
-                                <th style="text-align: left">Tanggal</th>
-                                <th style="text-align: left">Jam Masuk</th>
-                                <th style="text-align: left">Jam Keluar</th>
-                                <th style="text-align: left">Total Waktu</th>
+                                <th style="text-align: left">Kehadiran</th>
+                                <th style="text-align: left">Tidak Hadir</th>
                             </tr>
                         </thead>
                     </table>
@@ -69,11 +66,11 @@
             $(document).ready(function() {
                 clearSession();
 
-                var oTable = $('#tabel-kehadiran').DataTable({
+                var oTable = $('#tabel-jml-kehadiran').DataTable({
                     processing: true,
                     serverSide: true,
                     ajax: {
-                        url: "{{ route('kehadiran.getData') }}",
+                        url: "{{ route('kehadiran.getJmlKehadiran') }}",
                         data: function(d) {
                             d.unit = sessionStorage.unit;
                             d.username = sessionStorage.username;
@@ -81,19 +78,20 @@
                         }
                     },
                     columns: [
-                        // { data: 'kode_pegawai', name: 'kode_pegawai' },
                         { data: 'nip', name: 'nip' },
                         { data: 'nama_pegawai', name: 'nama_pegawai' },
-                        { data: 'unit_departement', name: 'unit_departement' },
-                        { data: 'tanggal', name: 'tanggal' },
-                        { data: 'jam_masuk', name: 'jam_masuk' },
-                        { data: 'jam_keluar', name: 'jam_keluar' },
-                        { data: 'total_waktu', name: 'total_waktu' }
+                        { data: 'unit', name: 'unit' },
+                        { data: 'kehadiran', name: 'kehadiran' },
+                        { data: 'tidak_hadir', name: 'tidak_hadir' }
                     ],
                     order: [
-                        [1, 'asc'],
-                        [3, 'asc']
-                    ]
+                        [1, 'asc']
+                    ],
+                    rowCallback: function(row, data) {
+                        if (data.nip === null) {
+                            $(row).css('background-color', '#FF6347');
+                        }
+                    }
                 });
 
                 function clearSession() {
@@ -114,7 +112,7 @@
                     oTable.draw();
                     e.preventDefault();
 
-                    var url = location.protocol + '//' + location.host + '/kehadiran/' + 'export-tik?username='+ formPegawai + '&unit=' + formUnit + '&tanggal=' + formTanggal;
+                    var url = location.protocol + '//' + location.host + '/kehadiran/' + 'export-jml-kehadiran?username='+ formPegawai + '&unit=' + formUnit + '&tanggal=' + formTanggal;
                     var links = encodeURI(url);
                     console.log(links)
 
