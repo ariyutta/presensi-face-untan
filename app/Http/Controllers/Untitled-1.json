@@ -36,6 +36,15 @@
         "terminal_id": 15
     },
     {
+        "emp_code": 2006,
+        "punch_time": "2024-03-25",
+        "terminal_sn": "CL9M203960084",
+        "terminal_alias": "34:75:63:2d:00:1f",
+        "area_alias": "UPT TIK",
+        "emp_id": 455,
+        "terminal_id": 15
+    },
+    {
         "emp_code": 2007,
         "punch_time": "2024-03-25",
         "terminal_sn": "CL9M203960084",

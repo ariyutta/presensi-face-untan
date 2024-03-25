@@ -10,8 +10,10 @@ class DashboardController extends Controller
 {
     public function index()
     {
+        // Kesekretariat
         $UPT_Bahasa = DB::table('personnel_employee')->where('department_id', 33)->count();
         $UPT_TIK = DB::table('personnel_employee')->where('department_id', 34)->count();
+        $UPT_Perpus = DB::table('personnel_employee')->where('department_id', 44)->count();
         $BAK = DB::table('personnel_employee')->where('department_id', 37)->count();
         $BUK_Umum = DB::table('personnel_employee')->where('department_id', 35)->count();
         $BUK_Keuangan = DB::table('personnel_employee')->where('department_id', 38)->count();
@@ -21,10 +23,24 @@ class DashboardController extends Controller
         $LPPPM = DB::table('personnel_employee')->where('department_id', 41)->count();
         $Lab_Terpadu = DB::table('personnel_employee')->where('department_id', 42)->count();
         $Rumkit = DB::table('personnel_employee')->where('department_id', 43)->count();
+        $Klinik = DB::table('personnel_employee')->where('department_id', 47)->count();
+
+        // Fakultas
+        $Fak_Hukum = DB::table('personnel_employee')->where('department_id', 50)->count();
+        $Fak_Ekonomi = DB::table('personnel_employee')->where('department_id', 45)->count();
+        $Fak_Pertanian = DB::table('personnel_employee')->where('department_id', 51)->count();
+        $Fak_Teknik = DB::table('personnel_employee')->where('department_id', 52)->count();
+        $Fak_ISIP = DB::table('personnel_employee')->where('department_id', 53)->count();
+        $Fak_IKIP = DB::table('personnel_employee')->where('department_id', 46)->count();
+        $Fak_Kehutanan = DB::table('personnel_employee')->where('department_id', 54)->count();
+        $Fak_MIPA = DB::table('personnel_employee')->where('department_id', 55)->count();
+        $Fak_Kedokteran = DB::table('personnel_employee')->where('department_id', 48)->count();
 
         $countDept = [
+            // Kesekretariat
             'upt_bahasa' => $UPT_Bahasa,
             'upt_tik' => $UPT_TIK,
+            'upt_perpus' => $UPT_Perpus,
             'bak' => $BAK,
             'buk_umum' => $BUK_Umum,
             'buk_keuangan' => $BUK_Keuangan,
@@ -34,7 +50,18 @@ class DashboardController extends Controller
             'lpppm' => $LPPPM,
             'lab_terpadu' => $Lab_Terpadu,
             'rumkit' => $Rumkit,
-            'klinik' => 0,
+            'klinik' => $Klinik,
+
+            // Fakultas
+            'fak_hukum' => $Fak_Hukum,
+            'fak_ekonomi' => $Fak_Ekonomi,
+            'fak_pertanian' => $Fak_Pertanian,
+            'fak_teknik' => $Fak_Teknik,
+            'fak_isip' => $Fak_ISIP,
+            'fak_kip' => $Fak_IKIP,
+            'fak_kehutanan' => $Fak_Kehutanan,
+            'fak_mipa' => $Fak_MIPA,
+            'fak_kedokteran' => $Fak_Kedokteran
         ];
 
         return view('dashboard', compact('countDept'));

@@ -28,6 +28,14 @@
                 <div class="col-sm-2 mb-5">
                     <div class="card shadow">
                         <div class="card-body">
+                            <h1>UPT Perpustakaan</h1>
+                            <h1 style="font-size:30px">{{ $countDept['upt_perpus'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
                             <h1 style="font-size:12px">BUK (Keuangan)</h1>
                             <h1 style="font-size:30px">{{ $countDept['buk_keuangan'] }}</h1>
                         </div>
@@ -92,7 +100,7 @@
                 <div class="col-sm-2 mb-5">
                     <div class="card shadow">
                         <div class="card-body">
-                            <h1>Klinik</h1>
+                            <h1>Klinik Pratama</h1>
                             <h1 style="font-size:30px">{{ $countDept['klinik'] }}</h1>
                         </div>
                     </div>
@@ -102,6 +110,82 @@
                         <div class="card-body">
                             <h1>Rumah Sakit</h1>
                             <h1 style="font-size:30px">{{ $countDept['rumkit'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row mt-2">
+                <h3 class="mb-5" style="font-size:18px">Fakultas</h3>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas Hukum</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_hukum'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas Ekonomi</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_ekonomi'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas Pertanian</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_pertanian'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas Teknik</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_teknik'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas ISIP</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_isip'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas KIP</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_kip'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas Kehutanan</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_kehutanan'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas MIPA</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_mipa'] }}</h1>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-2 mb-5">
+                    <div class="card shadow">
+                        <div class="card-body">
+                            <h1>Fakultas Kedokteran</h1>
+                            <h1 style="font-size:30px">{{ $countDept['fak_kedokteran'] }}</h1>
                         </div>
                     </div>
                 </div>

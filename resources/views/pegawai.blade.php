@@ -21,7 +21,7 @@
                         @endforeach
                     </select>
                 </div>
-                <div class="col-md-2">
+                {{-- <div class="col-md-2">
                     <label for="">Posisi</label>
                     <select class="form-select form-select-sm mb-3 mb-lg-0 formPosisi" data-control="select2" data-placeholder="Pilih Posisi" data-allow-clear="true">
                         <option></option>
@@ -29,8 +29,8 @@
                             <option value="{{ $item->id }}">{{ $item->position_name }}</option>
                         @endforeach
                     </select>
-                </div>
-                <div class="col-md-2">
+                </div> --}}
+                {{-- <div class="col-md-2">
                     <label for="">Perangkat Terdaftar</label>
                     <select class="form-select form-select-sm mb-3 mb-lg-0 formPerangkat" data-control="select2" data-placeholder="Pilih Perangkat" data-allow-clear="true">
                         <option></option>
@@ -38,7 +38,7 @@
                             <option value="{{ $item->id }}">{{ $item->area_name }}</option>
                         @endforeach
                     </select>
-                </div>
+                </div> --}}
             </div>
             <div class="card shadow">
                 <div class="table-responsive py-3 px-3">
