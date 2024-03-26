@@ -85,6 +85,12 @@ class KehadiranController extends Controller
                     $data2->where('dept_code', $request->unit);
                 });
             });
+        } else {
+            $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
+                $data->whereHas('department', function ($data2) use ($request) {
+                    $data2->where('dept_code', 0);
+                });
+            });
         }
 
         if (count($periode) == 2) {
@@ -166,7 +172,7 @@ class KehadiranController extends Controller
             foreach ($employeeData as $tanggal => $pegawai) {
                 foreach ($pegawai as $kodePegawai => $data) {
                     $formattedData[] = [
-                        'tanggal' => $tanggal,
+                        'tanggal' => date('d/m/Y', strtotime($tanggal)),
                         'kode_pegawai' => $kodePegawai,
                         'username' => $data['username'],
                         'nip' => $data['nip'],

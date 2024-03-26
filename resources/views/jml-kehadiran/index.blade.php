@@ -25,13 +25,12 @@
                     <label for="">Periode</label>
                     <input type="text" name="tanggal" placeholder="Pilih Tanggal" class="form-control form-control-sm tanggal" style="border-radius: 5px" >
                 </div>
-                <div class="col-sm-1">
-                    <label for="">Aksi....</label>
-                    <button class="btn btn-primary btn-sm cariPegawai" type="button">Cari Pegawai</button>
-                </div>
-                <div class="col-sm-1">
-                    <label for="">Cetak....</label>
-                    <a href="" target="_blank" id="buttonCetak" class="btn btn-success btn-sm" type="button">Cetak Pegawai</a>
+                <div class="col-sm-2">
+                    <label for="">Aksi</label>
+                    <div class="d-flex">
+                        <button class="btn btn-primary btn-sm cariPegawai" type="button"><i class="fas fa-search mr-1"></i>Cari</button>
+                        <a href="" target="_blank" id="buttonCetak" class="btn btn-success btn-sm ms-2" type="button"><i class="fas fa-file-excel mr-1"></i>Cetak</a>
+                    </div>
                 </div>
             </div>
             <div class="card shadow">
@@ -89,6 +88,9 @@
                     ],
                     rowCallback: function(row, data) {
                         if (data.nip === null) {
+                            $(row).css('background-color', '#FF6347');
+                        }
+                        else if (data.nip === "") {
                             $(row).css('background-color', '#FF6347');
                         }
                     }

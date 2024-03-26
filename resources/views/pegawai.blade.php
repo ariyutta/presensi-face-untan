@@ -45,7 +45,7 @@
                     <table id="tabel-pegawai" class="table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th style="text-align: left">ID Pegawai</th>
+                                <th style="text-align: left">NIP</th>
                                 <th style="text-align: left">Username</th>
                                 <th style="text-align: left">Nama Pegawai</th>
                                 <th>Unit</th>
@@ -119,6 +119,9 @@
                     ],
                     rowCallback: function(row, data) {
                         if (data.nickname === null) {
+                            $(row).css('background-color', '#FF6347');
+                        }
+                        else if (data.nickname === "") {
                             $(row).css('background-color', '#FF6347');
                         }
                     }
