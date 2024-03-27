@@ -225,9 +225,13 @@ class KehadiranController extends Controller
             foreach ($val['data'] as $item) {
                 $rekap[$i]['nip'] = $item['nip'];
                 $rekap[$i]['nama_pegawai'] = $item['nama_pegawai'];
-                $rekap[$i]['tanggal'] = $item['tanggal'];
-                $rekap[$i]['jam_masuk'] = $item['jam_masuk'];
-                $rekap[$i]['jam_keluar'] = $item['jam_keluar'];
+
+                // Ubah format tanggal
+                $rekap[$i]['tanggal'] = date('d/m/Y', strtotime($item['tanggal']));
+
+                // Ubah format jam_masuk dan jam_keluar
+                $rekap[$i]['jam_masuk'] = date('H:i', strtotime($item['jam_masuk']));
+                $rekap[$i]['jam_keluar'] = date('H:i', strtotime($item['jam_keluar']));
 
                 $jam_masuk = Carbon::parse($item['jam_masuk']);
                 $jam_keluar = Carbon::parse($item['jam_keluar']);
@@ -252,6 +256,7 @@ class KehadiranController extends Controller
                 $i++;
             }
         }
+
         $data = collect($rekap)->sortBy([
             ['nama_pegawai', 'asc'],
             ['tanggal', 'asc']
