@@ -128,20 +128,20 @@ class KehadiranController extends Controller
                         'nama_pegawai' => $employeeName,
                         'unit_departement' => $department,
                         'tanggal' => $punchTime->format('d/m/Y'),
-                        'jam_keluar' => $punchTime->format('H:i:s') . ' WIB',
-                        'jam_masuk' => $punchTime->format('H:i:s') . ' WIB',
+                        'jam_keluar' => $punchTime->format('H:i') . ' WIB',
+                        'jam_masuk' => $punchTime->format('H:i') . ' WIB',
                         'total_waktu' => 0,
                     ];
                 } else {
-                    $employeeData[$dateKey][$empCode]['jam_masuk'] = $punchTime->format('H:i:s') . ' WIB';
+                    $employeeData[$dateKey][$empCode]['jam_masuk'] = $punchTime->format('H:i') . ' WIB';
                 }
             }
         }
 
         foreach ($employeeData as &$dateData) {
             foreach ($dateData as &$data) {
-                $jamMasuk = Carbon::createFromFormat('H:i:s', substr($data['jam_masuk'], 0, -4));
-                $jamKeluar = Carbon::createFromFormat('H:i:s', substr($data['jam_keluar'], 0, -4));
+                $jamMasuk = Carbon::createFromFormat('H:i', substr($data['jam_masuk'], 0, -4));
+                $jamKeluar = Carbon::createFromFormat('H:i', substr($data['jam_keluar'], 0, -4));
 
                 $totalMenit = $jamMasuk->diffInMinutes($jamKeluar);
 
@@ -230,8 +230,8 @@ class KehadiranController extends Controller
                 $rekap[$i]['tanggal'] = date('d/m/Y', strtotime($item['tanggal']));
 
                 // Ubah format jam_masuk dan jam_keluar
-                $rekap[$i]['jam_masuk'] = date('H:i', strtotime($item['jam_masuk']));
-                $rekap[$i]['jam_keluar'] = date('H:i', strtotime($item['jam_keluar']));
+                $rekap[$i]['jam_masuk'] = date('H:i', strtotime($item['jam_masuk'])) . ' WIB';
+                $rekap[$i]['jam_keluar'] = date('H:i', strtotime($item['jam_keluar'])) . ' WIB';
 
                 $jam_masuk = Carbon::parse($item['jam_masuk']);
                 $jam_keluar = Carbon::parse($item['jam_keluar']);
@@ -425,10 +425,11 @@ class KehadiranController extends Controller
                     $kehadiranTidakHadir[$namaPegawai]['kehadiran']++;
 
                     // Menghandle kehadiran yang lebih dari kehadiran hari ini
+                    $handleKelebihanHari = 0;
                     if ($kehadiranTidakHadir[$namaPegawai]['kehadiran'] > $TotalHariKerja) {
-                        $handleKelebihanHari = $TotalHariKerjaPerBulan - $TotalHariKerja;
+                        $handleKelebihanHari = $kehadiranTidakHadir[$namaPegawai]['kehadiran'] - $TotalHariKerja;
 
-                        $kehadiranTidakHadir[$namaPegawai]['kehadiran'] = $kehadiranTidakHadir[$namaPegawai]['kehadiran'] - $handleKelebihanHari;
+                        $kehadiranTidakHadir[$namaPegawai]['kehadiran'] -= $handleKelebihanHari;
                     }
 
                     // Menghitung tidak hadir berdasarkan total hari

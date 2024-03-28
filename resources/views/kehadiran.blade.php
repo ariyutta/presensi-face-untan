@@ -1,8 +1,26 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Kehadiran') }}
-        </h2>
+        <div class="row">
+            <div class="col-sm-1">
+                <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+                    {{ __('Kehadiran') }}
+                </h2>
+            </div>
+            {{-- <div class="col-sm-1">
+                <label for="">Jam Masuk</label>
+                <input type="text" class="form-control form-control-sm setKehadiran" style="border-radius: 5px" name="setKehadiran" value="08:30">
+            </div>
+            <div class="col-sm-1">
+                <label for="">Jam Pulang</label>
+                <input type="text" class="form-control form-control-sm setKehadiran" style="border-radius: 5px" name="setKehadiran" value="15:00">
+            </div>
+            <div class="col-sm-2">
+                <label for="">.</label>
+                <div class="d-flex">
+                    <button class="btn btn-dark btn-sm" type="button"><i class="fas fa-save mr-1"></i>Simpan</button>
+                </div>
+            </div> --}}
+        </div>
     </x-slot>
 
     <div class="py-12">
