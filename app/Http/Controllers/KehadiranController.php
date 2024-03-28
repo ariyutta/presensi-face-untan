@@ -223,6 +223,7 @@ class KehadiranController extends Controller
         $i = 0;
         foreach ($data as $val) {
             foreach ($val['data'] as $item) {
+                $rekap[$i]['unit'] = $item['unit_departement'];
                 $rekap[$i]['nip'] = $item['nip'];
                 $rekap[$i]['nama_pegawai'] = $item['nama_pegawai'];
 
@@ -242,15 +243,15 @@ class KehadiranController extends Controller
                 $rekap[$i]['total_waktu'] = "$jam jam $menit menit";
 
                 // Waktu target hadir
-                $tanggal = $val['tanggal'];
-                $waktu_target_hadir = Carbon::parse("$tanggal 08:30:00");
+                // $tanggal = $val['tanggal'];
+                // $waktu_target_hadir = Carbon::parse("$tanggal 08:30:00");
 
-                // Periksa apakah waktu masuk terlambat
-                if ($jam_masuk->gt($waktu_target_hadir)) {
-                    $rekap[$i]['keterangan'] = "Terlambat";
-                } else {
-                    $rekap[$i]['keterangan'] = "Tepat Waktu";
-                }
+                // // Periksa apakah waktu masuk terlambat
+                // if ($jam_masuk->gt($waktu_target_hadir)) {
+                //     $rekap[$i]['keterangan'] = "Terlambat";
+                // } else {
+                //     $rekap[$i]['keterangan'] = "Tepat Waktu";
+                // }
 
                 $rekap[$i]['total_waktu'] = "$jam jam $menit menit";
                 $i++;
