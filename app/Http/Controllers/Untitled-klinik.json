@@ -1,0 +1,182 @@
+[
+    {
+        "emp_code": 11001,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1008,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11002,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1009,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11003,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1010,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11004,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1011,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11005,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1012,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11006,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1013,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11007,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1014,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11008,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1015,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11009,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1016,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11010,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1017,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11011,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1018,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11012,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1019,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11013,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1020,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11014,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1021,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11021,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1183,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11016,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1184,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11017,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1185,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11018,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1186,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11019,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1187,
+        "terminal_id": 21
+    },
+    {
+        "emp_code": 11020,
+        "punch_time": "2024-03-08",
+        "terminal_sn": "CL9M205160417",
+        "terminal_alias": "Gedung Klinik Pratama",
+        "area_alias": "Klinik Pratama",
+        "emp_id": 1188,
+        "terminal_id": 21
+    }
+]

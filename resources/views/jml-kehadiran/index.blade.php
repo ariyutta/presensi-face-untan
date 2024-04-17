@@ -8,15 +8,17 @@
     <div class="py-12">
         <div class="mx-auto sm:px-6 lg:px-8">
             <div class="row mb-5">
-                <div class="col-md-2">
-                    <label for="">Unit</label>
-                    <select class="form-select form-select-sm mb-3 mb-lg-0 unit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true" name="unit">
-                        <option></option>
-                        @foreach ($unit as $item)
-                            <option value="{{ $item->dept_code }}">{{ $item->dept_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                @if (Auth::user()->unit_id == 999)
+                    <div class="col-md-2">
+                        <label for="">Unit</label>
+                        <select class="form-select form-select-sm mb-3 mb-lg-0 unit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true" name="unit">
+                            <option></option>
+                            @foreach ($unit as $item)
+                                <option value="{{ $item->dept_code }}">{{ $item->dept_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
                 <div class="col-md-2">
                     <label for="">Nama Pegawai</label>
                     <input type="text" class="form-control form-control-sm username" placeholder="Ketik Nama Pegawai" style="border-radius: 5px" name="username">

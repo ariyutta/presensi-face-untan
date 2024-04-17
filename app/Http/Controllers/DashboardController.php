@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\IClockTransaction;
 use App\Models\PersonnelEmployee;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -51,6 +53,7 @@ class DashboardController extends Controller
             'lab_terpadu' => $Lab_Terpadu,
             'rumkit' => $Rumkit,
             'klinik' => $Klinik,
+            'rektorat' => 0,
 
             // Fakultas
             'fak_hukum' => $Fak_Hukum,
@@ -63,6 +66,9 @@ class DashboardController extends Controller
             'fak_mipa' => $Fak_MIPA,
             'fak_kedokteran' => $Fak_Kedokteran
         ];
+
+        // $datenow = Carbon::now()->format('Y-m-d');
+        // return $absen_today = IClockTransaction::with('')->whereBetween('punch_time', [$datenow . ' 00:00:00', $datenow . ' 23:59:59'])->get();
 
         return view('dashboard', compact('countDept'));
     }

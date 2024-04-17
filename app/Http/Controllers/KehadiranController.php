@@ -10,7 +10,9 @@ use App\Models\PersonnelDepartment;
 use App\Models\PersonnelEmployee;
 use Carbon\Carbon;
 use DateTime;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Maatwebsite\Excel\Facades\Excel;
 use Yajra\DataTables\Facades\DataTables;
@@ -69,6 +71,8 @@ class KehadiranController extends Controller
     public function getData(Request $request)
     {
         $periode = explode(' - ', $request->tanggal);
+        $user_login = Auth::user()->unit_id;
+
         $punches = IClockTransaction::orderBy('punch_time', 'desc')->orderBy('emp_code');
 
         if ($request->username) {
@@ -79,16 +83,24 @@ class KehadiranController extends Controller
             });
         }
 
-        if ($request->unit) {
-            $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
-                $data->whereHas('department', function ($data2) use ($request) {
-                    $data2->where('dept_code', $request->unit);
+        if ($user_login == 999) {
+            if ($request->unit) {
+                $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
+                    $data->whereHas('department', function ($data2) use ($request) {
+                        $data2->where('dept_code', $request->unit);
+                    });
                 });
-            });
+            } else {
+                $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
+                    $data->whereHas('department', function ($data2) use ($request) {
+                        $data2->where('dept_code', 0);
+                    });
+                });
+            }
         } else {
-            $punches = $punches->whereHas('pegawai', function ($data) use ($request) {
-                $data->whereHas('department', function ($data2) use ($request) {
-                    $data2->where('dept_code', 0);
+            $punches = $punches->whereHas('pegawai', function ($data) use ($user_login) {
+                $data->whereHas('department', function ($data2) use ($user_login) {
+                    $data2->where('dept_code', $user_login);
                 });
             });
         }
@@ -194,13 +206,18 @@ class KehadiranController extends Controller
         // return $request->all();
         $usernameId = '';
         $unitId = '';
+        $user_login = Auth::user()->unit_id;
 
         if ($request->username != null) {
             $usernameId = $request->username;
         }
 
-        if ($request->unit != null) {
-            $unitId = $request->unit;
+        if ($user_login == 999) {
+            if ($request->unit != null) {
+                $unitId = $request->unit;
+            }
+        } else {
+            $unitId = $user_login;
         }
 
         $periode = explode(' - ', $request->tanggal);
@@ -374,13 +391,18 @@ class KehadiranController extends Controller
     {
         $usernameId = '';
         $unitId = '';
+        $user_login = Auth::user()->unit_id;
 
         if ($request->username != null) {
             $usernameId = $request->username;
         }
 
-        if ($request->unit != null) {
-            $unitId = $request->unit;
+        if ($user_login == 999) {
+            if ($request->unit != null) {
+                $unitId = $request->unit;
+            }
+        } else {
+            $unitId = $user_login;
         }
 
         $periode = explode(' - ', $request->tanggal);
@@ -396,7 +418,7 @@ class KehadiranController extends Controller
             $endDate =  date('Y-m-d');
         }
 
-        $getHariKerja = Http::get("https://dashboard.presensi.untan.ac.id/api/service/getLibur")->json();
+        $getHariKerja = Http::get("http://172.16.40.85:8002/api/service/get-hari-kerja?tanggal=$startDate")->json();
         $data = Http::get("http://172.16.40.117:8000/api/getKehadiran?username=$usernameId&department_id=$unitId&periode=$startDate%2000:00:00%20-%20$endDate%2023:59:59")->json();
 
         // return $usernameId . ', ' . $unitId . ', ' . $startDate . ', ' . $endDate;

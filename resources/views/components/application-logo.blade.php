@@ -2,4 +2,3 @@
     <img src="{{ asset('images/logo-untan.png') }}" {{ $attributes }} style="margin-right: 10px;">
     <span>Presensi Face Recognition</span>
 </div>
-

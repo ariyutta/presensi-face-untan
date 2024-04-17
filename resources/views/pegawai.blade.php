@@ -12,15 +12,17 @@
                     <label for="">Nama Pegawai</label>
                     <input type="text" class="form-control form-control-sm formPegawai" placeholder="Ketik Nama Pegawai" style="border-radius: 5px">
                 </div>
-                <div class="col-md-2">
-                    <label for="">Unit</label>
-                    <select class="form-select form-select-sm mb-3 mb-lg-0 formUnit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true">
-                        <option></option>
-                        @foreach ($unit as $item)
-                            <option value="{{ $item->id }}">{{ $item->dept_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                @if (Auth::user()->unit_id == 999)
+                    <div class="col-md-2">
+                        <label for="">Unit</label>
+                        <select class="form-select form-select-sm mb-3 mb-lg-0 formUnit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true">
+                            <option></option>
+                            @foreach ($unit as $item)
+                                <option value="{{ $item->id }}">{{ $item->dept_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                @endif
                 {{-- <div class="col-md-2">
                     <label for="">Posisi</label>
                     <select class="form-select form-select-sm mb-3 mb-lg-0 formPosisi" data-control="select2" data-placeholder="Pilih Posisi" data-allow-clear="true">
@@ -45,10 +47,10 @@
                     <table id="tabel-pegawai" class="table-sm table-bordered">
                         <thead>
                             <tr>
-                                <th style="text-align: left">NIP</th>
-                                <th style="text-align: left">Username</th>
-                                <th style="text-align: left">Nama Pegawai</th>
-                                <th>Unit</th>
+                                <th style="text-align: left; width: 160px">NIP</th>
+                                <th style="text-align: left; width: 250px">Username</th>
+                                <th style="text-align: left; width: 250px">Nama Pegawai</th>
+                                <th style="text-align: left; width: 180px">Unit</th>
                                 {{-- <th>Posisi</th> --}}
                                 <th style="text-align: left">Perangkat Terdaftar</th>
                             </tr>
