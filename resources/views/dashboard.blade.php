@@ -5,11 +5,26 @@
         </h2>
     </x-slot>
 
+    @php
+        $currentTime = now()->format('H:i');
+        $greeting = '';
+
+        if ($currentTime >= '00:00' && $currentTime < '11:00') {
+            $greeting = 'Selamat Pagi, ';
+        } elseif ($currentTime >= '11:00' && $currentTime < '15:00') {
+            $greeting = 'Selamat Siang, ';
+        } elseif ($currentTime >= '15:00' && $currentTime < '18:00') {
+            $greeting = 'Selamat Sore, ';
+        } else {
+            $greeting = 'Selamat Malam, ';
+        }
+    @endphp
+
     @if (Auth::user()->unit_id == 10)
         <div class="py-12">
             <div class="mx-auto sm:px-6 lg:px-8">
                 <div class="row">
-                    <h3 class="mb-5" style="font-size:18px">Kesekretariat</h3>
+                    <h3 class="mb-5" style="font-size:22px"><strong>{{ $greeting }} {{ Auth::user()->name }}!</strong></h3>
                     <div class="col-sm-2 mb-5">
                         <div class="card shadow">
                             <div class="card-body">
@@ -18,6 +33,34 @@
                             </div>
                         </div>
                     </div>
+                    <div class="col-sm-10 mb-5">
+                        <div class="card shadow">
+                            <div class="card-body">
+                                <h1 style="font-size:20px"><strong>History Absen</strong></h1>
+                                <table id="absenTable" class="table table-sm table-bordered mt-3">
+                                    <thead>
+                                        <tr>
+                                            <th>NIP</th>
+                                            <th>Nama Pegawai</th>
+                                            <th>Jam Masuk</th>
+                                            <th>Keterangan</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach ($absen_today as $item)
+                                            <tr>
+                                                <td>{{ $item->pegawai->nickname }}</td>
+                                                <td>{{ $item->pegawai->first_name }}</td>
+                                                <td>{{ $item->punch_time }}</td>
+                                                <td>{{ $item->punch_state }}</td>
+                                            </tr>
+                                        @endforeach
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -402,4 +445,21 @@
             </div>
         </div>
     @endif
+
+    @section('js')
+        <script>
+            $(document).ready(function() {
+                $('#absenTable').DataTable({
+                    data: {!! $absen_today !!}, // Menggunakan data yang dikirimkan dari controller
+                    columns: [
+                        { data: 'id' },
+                        { data: 'terminal_id' },
+                        { data: 'punch_time' },
+                        // Tambahkan kolom lain sesuai kebutuhan
+                    ]
+                });
+            });
+        </script>
+    @endsection
+
 </x-app-layout>

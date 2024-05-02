@@ -29,7 +29,8 @@
                 @if (Auth::user()->unit_id == 999)
                     <div class="col-md-2">
                         <label for="">Unit</label>
-                        <select class="form-select form-select-sm mb-3 mb-lg-0 unit" data-control="select2" data-placeholder="Pilih Unit" data-allow-clear="true" name="unit">
+                        <select class="form-select form-select-sm mb-3 mb-lg-0 unit" data-control="select2"
+                            data-placeholder="Pilih Unit" data-allow-clear="true" name="unit">
                             <option></option>
                             @foreach ($unit as $item)
                                 <option value="{{ $item->dept_code }}">{{ $item->dept_name }}</option>
@@ -39,17 +40,20 @@
                 @endif
                 <div class="col-md-2">
                     <label for="">Nama Pegawai</label>
-                    <input type="text" class="form-control form-control-sm username" placeholder="Ketik Nama Pegawai" style="border-radius: 5px" name="username">
+                    <input type="text" class="form-control form-control-sm username" placeholder="Ketik Nama Pegawai"
+                        style="border-radius: 5px" name="username">
                 </div>
                 <div class="col-md-3">
                     <label for="">Periode</label>
-                    <input type="text" name="tanggal" placeholder="Pilih Tanggal" class="form-control form-control-sm tanggal" style="border-radius: 5px" >
+                    <input type="text" name="tanggal" placeholder="Pilih Tanggal"
+                        class="form-control form-control-sm tanggal" style="border-radius: 5px">
                 </div>
                 <div class="col-sm-2">
                     <label for="">Aksi</label>
                     <div class="d-flex">
-                        <button class="btn btn-primary btn-sm cariPegawai" type="button"><i class="fas fa-search mr-1"></i>Cari</button>
-                        <a href="" target="_blank" id="buttonCetak" class="btn btn-success btn-sm ms-2" type="button"><i class="fas fa-file-excel mr-1"></i>Cetak</a>
+                        <button class="btn btn-primary btn-sm cariPegawai" type="button"><i
+                                class="fas fa-search mr-1"></i>Cari</button>
+                        {{-- <a href="" target="_blank" id="buttonCetak" class="btn btn-success btn-sm ms-2" type="button"><i class="fas fa-file-excel mr-1"></i>Cetak</a> --}}
                     </div>
                 </div>
             </div>
@@ -102,13 +106,34 @@
                     },
                     columns: [
                         // { data: 'kode_pegawai', name: 'kode_pegawai' },
-                        { data: 'nip', name: 'nip' },
-                        { data: 'nama_pegawai', name: 'nama_pegawai' },
-                        { data: 'unit_departement', name: 'unit_departement' },
-                        { data: 'tanggal', name: 'tanggal' },
-                        { data: 'jam_masuk', name: 'jam_masuk' },
-                        { data: 'jam_keluar', name: 'jam_keluar' },
-                        { data: 'total_waktu', name: 'total_waktu' }
+                        {
+                            data: 'nip',
+                            name: 'nip'
+                        },
+                        {
+                            data: 'nama_pegawai',
+                            name: 'nama_pegawai'
+                        },
+                        {
+                            data: 'unit_departement',
+                            name: 'unit_departement'
+                        },
+                        {
+                            data: 'tanggal',
+                            name: 'tanggal'
+                        },
+                        {
+                            data: 'jam_masuk',
+                            name: 'jam_masuk'
+                        },
+                        {
+                            data: 'jam_keluar',
+                            name: 'jam_keluar'
+                        },
+                        {
+                            data: 'total_waktu',
+                            name: 'total_waktu'
+                        }
                     ],
                     order: [
                         [1, 'asc'],
@@ -117,8 +142,7 @@
                     rowCallback: function(row, data) {
                         if (data.nip === null) {
                             $(row).css('background-color', '#FF6347');
-                        }
-                        else if (data.nip === "") {
+                        } else if (data.nip === "") {
                             $(row).css('background-color', '#FF6347');
                         }
                     }
@@ -142,7 +166,8 @@
                     oTable.draw();
                     e.preventDefault();
 
-                    var url = location.protocol + '//' + location.host + '/kehadiran/' + 'export-tik?username='+ formPegawai + '&unit=' + formUnit + '&tanggal=' + formTanggal;
+                    var url = location.protocol + '//' + location.host + '/kehadiran/' +
+                        'export-tik?username=' + formPegawai + '&unit=' + formUnit + '&tanggal=' + formTanggal;
                     var links = encodeURI(url);
                     console.log(links)
 

@@ -67,9 +67,9 @@ class DashboardController extends Controller
             'fak_kedokteran' => $Fak_Kedokteran
         ];
 
-        // $datenow = Carbon::now()->format('Y-m-d');
-        // return $absen_today = IClockTransaction::with('')->whereBetween('punch_time', [$datenow . ' 00:00:00', $datenow . ' 23:59:59'])->get();
+        $datenow = Carbon::now()->format('Y-m-d');
+        $absen_today = IClockTransaction::select('emp_code', 'punch_time', 'punch_state', 'terminal_id')->whereIn('terminal_id', [15, 22])->whereBetween('punch_time', [$datenow . ' 00:00:00', $datenow . ' 23:59:59'])->orderBy('punch_time', 'desc')->get();
 
-        return view('dashboard', compact('countDept'));
+        return view('dashboard', compact('countDept', 'absen_today'));
     }
 }
